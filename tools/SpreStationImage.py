@@ -69,6 +69,17 @@ if __name__ == '__main__':
 
     xml_root = ET.fromstring(XmlData)
 
+    def show_node(node):
+        if 'image' in node.attrib:
+            w, h, packed_img = cmpress5515_png_data(node.attrib['image'])
+            of = open('rgb5515_data.dat', 'wb')
+            of.write(packed_img)
+            of.close()
+            exit()
+        print (node.tag, node.attrib)
+        for child in node:
+            show_node(child)
+
     show_node(xml_root)
 
 
