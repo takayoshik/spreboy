@@ -57,7 +57,7 @@ def cmpress5515_png_data(image_data, xy=None):
 
 
 def getImageDataFromXml(xml_data):
-    return re.sub('^data:image/.+;base64,', '', node.attrib['image']).decode('base64')
+    return re.sub('^data:image/.+;base64,', '', xml_data.attrib['image']).decode('base64')
 
 
 #======================================================
@@ -71,7 +71,8 @@ if __name__ == '__main__':
 
     def show_node(node):
         if 'image' in node.attrib:
-            w, h, packed_img = cmpress5515_png_data(node.attrib['image'])
+            img_xml = getImageDataFromXml(node)
+            w, h, packed_img = cmpress5515_png_data(img_xml)
             of = open('rgb5515_data.dat', 'wb')
             of.write(packed_img)
             of.close()
